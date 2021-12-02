@@ -32,9 +32,9 @@ async def main_loop():
                 for trade in trade_list:
                     if trade['position']:
                         yield OrderType("exit", bybit, trade)
+                        trade['position'] = None
                         await asyncio.sleep(1)   # 1초 텀으로 비동기 주문
-                    trade['position'] = None
-
+                    
             else:
                 for trade in trade_list:
                     trade_condition = check_trade_point(trade, bybit)
